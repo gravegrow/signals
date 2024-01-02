@@ -22,6 +22,11 @@ class Signal:
 
         return self
 
+    def disconnect(self, fn: Callable) -> None:
+        for connection in self.connections:
+            if connection.callable == fn:
+                self.connections.remove(connection)
+
     def emit(self, *args, **kwargs) -> None:
         if not self.connections:
             return
@@ -47,11 +52,6 @@ class Signal:
                     del kwargs[key]
 
             connection.callable(*args, **kwargs)
-
-    def disconnect(self, fn: Callable) -> None:
-        for connection in self.connections:
-            if connection.callable == fn:
-                self.connections.remove(connection)
 
     def bind(self, *args, **kwargs) -> "Signal":
         self.connections[-1].set_arguments(*args, **kwargs)

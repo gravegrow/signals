@@ -16,10 +16,8 @@ class Connection:
 
     @property
     def args(self):
-        """The args property."""
         return self._args
 
     @property
     def kwargs(self):
-        """The kwargs property."""
         return self._kwargs
